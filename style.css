@@ -4,6 +4,7 @@ html {
 
 #header {
     position: fixed;
+    z-index: 99;
     display: flex;
     justify-content: center;
     width: 100vw;
@@ -18,11 +19,14 @@ html {
 
 #content-section {
     display: flex;
-    height: 90vw;
+    height: 90vh;
 }
 
 #menu-panel {
     width: 40vw;
+    height: 90vh;
+    margin-top: 10vh;
+    
     border: 1px solid black;
     overflow: scroll;
 }
@@ -54,6 +58,16 @@ html {
 
 #content-panel {
     width: 60vw;
+    height: 90vh;
+    margin-top: 10vh;
+
     border: 1px solid black;
 
+}
+
+#map {
+    height: 90vh;
+    50%;
+    
+    position: fixed;
 }
