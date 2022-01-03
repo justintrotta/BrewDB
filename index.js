@@ -12,11 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function renderList(obj) {
         const list = document.querySelector("div#menu-panel");
-        const caption = document.createElement("div");
-        caption.className = "caption";
 
         const item = document.createElement("div");
         item.className = "menu-block";
+
+        const caption = document.createElement("div");
+        caption.className = "caption";
 
         const name = document.createElement("div");
         name.className = "title";
@@ -31,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
         img.className = "icon";
         img.src = favicon;
 
+        item.append(caption, img);
         caption.append(name, location);
-        list.append(caption, img);
-
+        list.append(item);
 
 
     }

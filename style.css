@@ -31,6 +31,10 @@ html {
     overflow: scroll;
 }
 
+/* #search {
+    height: 50px;
+} */
+
 .menu-block {
     width: 100%;
     height: 70px;
@@ -39,6 +43,10 @@ html {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.menu-block span {
+    margin-left: 5px;
 }
 
 .caption {
@@ -52,7 +60,7 @@ html {
 }
 
 .icon {
-    height: inherit;
+    height: 100%;
     margin-right: 5px;
 }
 
@@ -66,8 +74,8 @@ html {
 }
 
 #map {
-    height: 90vh;
-    50%;
+    height: 50vh;
+    /* 50%; */
     
     position: fixed;
 }
