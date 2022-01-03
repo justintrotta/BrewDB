@@ -1,20 +1,33 @@
-document.addEventListener("DOMContentLoaded", () => {
+let map;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 	40.730610, lng: -73.935242},
+    zoom: 8,
+  });
+}
 
     BEER_URL = "https://api.punkapi.com/v2/beers"
     BREW_URL = "https://api.openbrewerydb.org/breweries"
-    const BEER_FETCH = fetch(BEER_URL).then(r => r.json());+
+    const BEER_FETCH = fetch(BEER_URL).then(r => r.json());
     const BREW_FETCH = fetch(BREW_URL).then(r => r.json());
-    console.log(BASE_FETCH)
+    console.log(BEER_FETCH)
     console.log(BREW_FETCH)
 
-    fetchBeerContent();
-    formSwapHandler();
+    fetchBrewContent();
+    searchHandler();
+    // formSwapHandler();
+    
 
     function fetchBeerContent() {
         BEER_FETCH.then(o => o.forEach(renderList))
     }
+
+    function fetchBrewContent() {
+        BREW_FETCH.then(o => o.forEach(renderListBrew))
+    }
     
-    function renderList(obj) {
+    function renderListBrew(obj) {
         const list = document.querySelector("div#menu-panel");
         const caption = document.createElement("div");
         caption.className = "caption";
@@ -28,38 +41,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const subtitle = document.createElement("div");
         subtitle.className = "subtitle";
-        subtitle.innerHTML = obj.tagline;
-
-        const img = document.createElement("img");
-        img.className = "icon";
-        img.src = obj.image_url;
+        subtitle.innerHTML = `${obj.city}, ${obj.state}`;
 
         caption.append(name, subtitle);
-        item.append(caption, img);
+        item.append(caption);
         list.append(item);
 
-        list.addEventListener("click", (e) => {
+        const location = {lat: parseFloat(obj.latitude), lng: parseFloat(obj.longitude)}
+
+        const marker = new google.maps.Marker({
+            position: location,
+            map: map
+        })
+
+        console.log(location)
+
+        item.addEventListener("click", (e) => {
 
         })
     }
 
-    function formSwapHandler(){
+    function searchHandler() {
+        let searchBar = document.querySelector("form#search");
+        console.log(searchBar)
+        searchBar.addEventListener("submit", (e) => {
+            e.preventDefault();
+            let cityName = e.target.value;
+            cityName = cityName.toLowerCase();
+            let cityArr = cityName.split(" ");
+            cityName = cityArr.join("_");
+            console.log(cityName);
+        })
+    }
+
+    // function formSwapHandler(){
         // const beer = document.querySelector("beer button")
-        // const brew = document.querySelector("brew button")
+    //     // const brew = document.querySelector("brew button")
 
-        beer.addEventListener("click", (e) => {
-            clearBody();
-            fetchBeerContent();
-        })
+    //     beer.addEventListener("click", (e) => {
+    //         clearBody();
+    //         fetchBeerContent();
+    //     })
 
-        brew.addEventListener("click", (e) => {
-            clearBody();
-        })
-    }
+    //     brew.addEventListener("click", (e) => {
+    //         clearBody();
+    //     })
+    // }
 
     function clearBody(){
         const bodyContent = document.querySelector("div#content-section");
         while(bodyContent.firstChild) {bodyContent.removeChild(bodyContent.firstChild)};
     }
 
-})
+    function clearList(){
+        const listContent = document.querySelector("div#menu-panel");
+        while(listContent.firstChild) {listContent.removeChild(listContent.firstChild)};
+    }
+
