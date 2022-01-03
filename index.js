@@ -2,14 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     BEER_URL = "https://api.punkapi.com/v2/beers"
     BREW_URL = "https://api.openbrewerydb.org/breweries"
-    const BEER_FETCH = fetch(BEER_URL).then(r => r.json());
+    const BEER_FETCH = fetch(BEER_URL).then(r => r.json());+
     const BREW_FETCH = fetch(BREW_URL).then(r => r.json());
     console.log(BASE_FETCH)
     console.log(BREW_FETCH)
 
-    fetchContent();
+    fetchBeerContent();
+    formSwapHandler();
 
-    function fetchContent() {
+    function fetchBeerContent() {
         BEER_FETCH.then(o => o.forEach(renderList))
     }
     
@@ -40,6 +41,25 @@ document.addEventListener("DOMContentLoaded", () => {
         list.addEventListener("click", (e) => {
 
         })
-
     }
+
+    function formSwapHandler(){
+        // const beer = document.querySelector("beer button")
+        // const brew = document.querySelector("brew button")
+
+        beer.addEventListener("click", (e) => {
+            clearBody();
+            fetchBeerContent();
+        })
+
+        brew.addEventListener("click", (e) => {
+            clearBody();
+        })
+    }
+
+    function clearBody(){
+        const bodyContent = document.querySelector("div#content-section");
+        while(bodyContent.firstChild) {bodyContent.removeChild(bodyContent.firstChild)};
+    }
+
 })
