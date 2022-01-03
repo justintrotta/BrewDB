@@ -4,7 +4,8 @@
         <title>Brew DB</title>
         <link rel="stylesheet" href="./style.css"/>
         <script src="./index.js" async></script>
-
+        <script src="./maps.js"></script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA66vQB_EUsANahLbykkfJbrk-qoTk0MxA&callback=initMap"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
@@ -113,7 +114,7 @@
             </div>
             <!-- right side of screen- map and detail-view of item that is clicked in the menu -->
             <div id="content-panel">
-                
+                <div id="map"></div>
             </div> 
         </div>
     </body>
