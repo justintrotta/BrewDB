@@ -1,7 +1,9 @@
+/* global stuff */
 html {
     font-family: 'Poppins', sans-serif;
 }
 
+/* header area */
 #header {
     position: fixed;
     z-index: 99;
@@ -17,15 +19,22 @@ html {
     margin-top: auto;
 }
 
+/* main body section */
 #content-section {
     display: flex;
     height: 90vh;
 }
 
+/* search area/form */
 #search {
     text-align: center;
+    position: fixed;
+    top: 45px;
+    margin-left: 10px;
+    z-index: 99;
 }
 
+/* left side/search results */
 #menu-panel {
     width: 40vw;
     height: 90vh;
@@ -40,10 +49,6 @@ html {
     overflow: scroll;
 }
 
-.active-filter {
-    background-color: darkgoldenrod;
-}
-
 .menu-block {
     width: 100%;
     z-index:99;
@@ -53,10 +58,16 @@ html {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    font-size: 12px;
 }
 
 .menu-block span {
     margin-left: 5px;
+}
+
+#search-icon {
+    height: 20px;
+    margin-right: 10px;
 }
 
 .caption {
@@ -69,38 +80,55 @@ html {
     font-style: italic;
 }
 
-.icon {
-    height: 100%;
-    margin-right: 5px;
-}
-
+/* right side of screen/detail view and map */
 #content-panel {
     width: 60vw;
     height: 90vh;
     margin-top: 10vh;
 
+    
     border: 1px solid black;
+    overflow: scroll;
 
 }
 
 #map {
-    height: 50vh;
-    
+    height: 50vh;    
     position: fixed;
 }
 
+/* detail view */
 #details {
     text-align: left;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    height: 40vh;
 }
 
-#details-container {
-    
-    
+#beer-details {
     margin: auto;
+    display: none;
+    width: 80%;
 }
 
-#details span {
-    color: darkgray;
+#detail-image {
+    margin-top: 30px;
+}
+
+#brewery-details {
+    margin: auto;
+    display: none;
+    /* width: 80%; */
+}
+
+.detail-label {
+    background-color: darkgoldenrod;
+}
+
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 0 10px;;
 }

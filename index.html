@@ -5,6 +5,7 @@
         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA66vQB_EUsANahLbykkfJbrk-qoTk0MxA&callback=initMap"></script>
         <link rel="stylesheet" href="./style.css"/>
         <script src="./index.js"></script>
+        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
@@ -23,7 +24,7 @@
                         <label for="beer-search">Beer</label>
                         <input type="radio" id="brew-search" name="searchToggle" value="brew" checked>
                         <label for="brewery-search">Brewery</label>
-                        <input type="text" id="search-brew" name="search-brew" placeholder="Enter City Name">
+                        <input type="text" id="search-brew" name="search-brew" placeholder="Enter city name...">
                         <input type="submit" value="Submit">
                     </form>
                     <div id="menu-container">
@@ -35,14 +36,66 @@
             <div id="content-panel">
                 <div id="map"></div>
                 <div id="details">
-                    <div id="details-container">
-                        <h3>Name: <span id="detail-name"></span> </h3>
-                        <h3>Type:  <span id="detail-type"></span> </h3>
-                        <h3>Address: <span id="detail-address"></span></h3> 
-                        <h3>City/State: <span id="detail-city-state"></span></h3> 
-                        <h3>Phone: <span id="detail-phone"></span></h3> 
-                        <h3>Website:  <span id="detail-website"></span></h3>
-                    </div>
+                    <span id="placeholder">Select a search result to see details.</span>
+                    <table id="brewery-details">
+                        <tr>
+                            <td class="detail-label">Name</td>
+                            <td id="detail-name"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Type</td>
+                            <td id="detail-type"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Address</td>
+                            <td id="detail-address"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">City/State</td>
+                            <td id="detail-city-state"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Phone</td>
+                            <td id="detail-phone"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Website</td>
+                            <td><a src="#" id="detail-website"></a></td>
+                        </tr>
+                    </table>
+                    <table id="beer-details">
+                        <div>
+                            <img id="detail-image"></img>
+                        </div>
+                        <tr>
+                            <td class="detail-label">Name</td>
+                            <td id="detail-beer-name"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Tagline</td>
+                            <td id="detail-tagline"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Description</td>
+                            <td id="detail-description"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Since</td>
+                            <td id="detail-since"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">ABV</td>
+                            <td id="detail-abv"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">IBU</td>
+                            <td id="detail-ibu"></td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Tips</td>
+                            <td id="detail-tips"></td>
+                        </tr>
+                    </table>
                 </div>
             </div> 
         </div>

@@ -28,8 +28,13 @@ function fetchBeerContent() {
 
 function renderListBeer(obj) {
     const list = document.querySelector("div#menu-container");
+
     const caption = document.createElement("div");
     caption.className = "caption";
+
+    const searchIcon = document.createElement("img")
+    searchIcon.src = './assets/search-solid.svg'
+    searchIcon.id = 'search-icon'
 
     const item = document.createElement("div");
     item.className = "menu-block";
@@ -42,12 +47,19 @@ function renderListBeer(obj) {
     const subtitle = document.createElement("div");
     subtitle.className = "subtitle";
     subtitle.innerHTML = obj.tagline
-    console.log('hello')
 
+    //combine title and subtitle
+    // put those inside the menu item
     caption.append(name, subtitle);
     item.append(caption);
+    item.append(searchIcon)
+
+    //give class and add to list
     item.classList.add('menu-block');
     list.append(item);
+
+    //show beer details when clicked
+    searchIcon.addEventListener('click', fetchBeerDetails)
 }
 
 function fetchBrewContent() {
@@ -58,6 +70,10 @@ function renderListBrew(obj) {
     const list = document.querySelector("div#menu-container");
     const caption = document.createElement("div");
     caption.className = "caption";
+
+    const searchIcon = document.createElement("img")
+    searchIcon.src = './assets/search-solid.svg'
+    searchIcon.id = 'search-icon'
 
     const item = document.createElement("div");
     item.className = "menu-block";
@@ -73,6 +89,8 @@ function renderListBrew(obj) {
 
     caption.append(name, subtitle);
     item.append(caption);
+    item.append(searchIcon)
+
     item.classList.add('menu-block');
     list.append(item);
 
@@ -88,7 +106,7 @@ function renderListBrew(obj) {
 
     //when user clicks on a search result, populate details section
     //also pan to result in the map view
-    item.addEventListener("click", fetchBrewDetails)
+    searchIcon.addEventListener('click', fetchBrewDetails)
 }
 
 function searchHandler(e) {
@@ -111,7 +129,7 @@ function searchHandler(e) {
         cityFetch.then(o => {
                 let lat = parseFloat(o[0].latitude);
                 let lng = parseFloat(o[0].longitude);
-                console.log(lat, lng);
+                // console.log(lat, lng);
                 let location = {lat: lat, lng: lng};
                 map.panTo(location)
             })
@@ -124,17 +142,56 @@ function searchHandler(e) {
         let beerUrl = beerArr.join("_");
 
         const beerFetch = fetch(BEER_URL + `?beer_name=${beerUrl}`).then(r => r.json());
-        console.log(beerFetch)
+        
         clearList();
         removeMarkers();
         beerFetch.then(o => o.forEach(renderListBeer))
     }
 }
 
+function fetchBeerDetails(e) {
+    fetch(BEER_URL + `/${e.target.parentNode.id}`)
+    .then(res => res.json())
+    .then(obj => {
+        // console.log(obj[0])
+
+        const beerImg = document.querySelector("#detail-image")
+        beerImg.style.display = 'block'
+        beerImg.src = obj[0].image_url
+        beerImg.style.height = '200px';
+
+        const beerName = document.querySelector('#detail-beer-name')
+        beerName.textContent = obj[0].name
+
+        const tagline = document.querySelector('#detail-tagline')
+        tagline.textContent = obj[0].tagline
+
+        const desc = document.querySelector('#detail-description')
+        desc.textContent = obj[0].description
+
+        const since = document.querySelector('#detail-since')
+        since.textContent = obj[0].first_brewed
+
+        const abv = document.querySelector('#detail-abv')
+        abv.textContent = obj[0].abv
+
+        const ibu = document.querySelector('#detail-ibu')
+        ibu.textContent = obj[0].ibu
+
+        const tips = document.querySelector('#detail-tips')
+        tips.textContent = obj[0].brewers_tips
+
+        if (!!document.querySelector("#placeholder")) {
+            document.querySelector("#placeholder").remove()
+        }
+    
+        document.querySelector('#beer-details').style.display = 'flex'
+    })
+}
+
 //used to fetch add'l details for content section
 function fetchBrewDetails(e) {
-    console.log(e.target)
-    fetch(BREW_URL + `/${e.target.id}`)
+    fetch(BREW_URL + `/${e.target.parentNode.id}`)
     .then(res => res.json())
     .then(obj => {
         const name = document.querySelector('#detail-name')
@@ -154,13 +211,20 @@ function fetchBrewDetails(e) {
 
         const website = document.querySelector('#detail-website')
         website.textContent = obj.website_url
+        website.href = obj.website_url
+        
+        if (!!document.querySelector("#placeholder")) {
+            document.querySelector("#placeholder").remove()
+        }
 
         try { 
             map.panTo({lat: parseFloat(obj.latitude), lng: parseFloat(obj.longitude)})
+            map.setZoom(14)
         } catch {
             alert('No geolocation data available for this brewery.')
         }
         
+        document.querySelector('#brewery-details').style.display = 'flex'
     })
 }
 
@@ -168,11 +232,18 @@ function formSwapHandler(e){
     clearList()
 
     if (e.target.value === 'beer') {
-        //hide the map
+        //hide the map and the brewery details table
         document.querySelector('#map').style.display = 'none'
+        document.querySelector('#details').style.height = '90vh'
+        document.querySelector('#brewery-details').style.display = 'none'
+        document.querySelector("#search-brew").placeholder = 'Enter keywords...'
     } else {
-        //bring the map back
+        //bring the map back and hide the beer details table
         document.querySelector('#map').style.display = 'block'
+        document.querySelector('#detail-image').style.display = 'none'
+        document.querySelector('#details').style.height = '40vh'
+        document.querySelector('#beer-details').style.display = 'none'
+        document.querySelector("#search-brew").placeholder = 'Enter city name...'
     }
 }
 
