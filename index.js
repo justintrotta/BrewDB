@@ -28,6 +28,39 @@ function initMap() {
     function fetchBrewContent() {
         BREW_FETCH.then(o => o.forEach(renderListBrew))
     }
+
+    //used to fetch add'l details for content section
+    function fetchBrewDetails(e) {
+            console.log(e.target)
+            fetch(BREW_URL + `/${e.target.id}`)
+            .then(res => res.json())
+            .then(obj => {
+                const name = document.querySelector('#detail-name')
+                name.textContent = obj.name
+
+                const type = document.querySelector('#detail-type')
+                type.textContent = obj.brewery_type
+
+                const address = document.querySelector('#detail-address')
+                address.textContent = obj.street
+
+                const cityState = document.querySelector('#detail-city-state')
+                cityState.textContent = `${obj.city}, ${obj.state}`
+
+                const phone = document.querySelector('#detail-phone')
+                phone.textContent = obj.phone
+
+                const website = document.querySelector('#detail-website')
+                website.textContent = obj.website_url
+
+                try { 
+                    map.panTo({lat: parseFloat(obj.latitude), lng: parseFloat(obj.longitude)})
+                } catch {
+                    alert('No geolocation data available for this brewery.')
+                }
+                
+            })
+    }
     
     function renderListBrew(obj) {
         const list = document.querySelector("div#menu-container");
@@ -36,6 +69,7 @@ function initMap() {
 
         const item = document.createElement("div");
         item.className = "menu-block";
+        item.id = obj.id
 
         const name = document.createElement("div");
         name.className = "title";
@@ -47,6 +81,7 @@ function initMap() {
 
         caption.append(name, subtitle);
         item.append(caption);
+        item.classList.add('menu-block');
         list.append(item);
 
         const location = {lat: parseFloat(obj.latitude), lng: parseFloat(obj.longitude)}
@@ -59,10 +94,20 @@ function initMap() {
 
         markers.push(marker)
 
+<<<<<<< Updated upstream
+        //when user clicks on a search result, populate details section
+        //also pan to result in the map view
+        item.addEventListener("click", fetchBrewDetails)
+
+=======
         item.addEventListener("click", (e) => {
-
+            console.log('ding')
+            const p = document.createElement('p')
+            p.textContent = e.target.innerText
+        
+            document.querySelector('div#details').appendChild(p)
         })
-
+>>>>>>> Stashed changes
     }
 
     function searchHandler() {
@@ -70,11 +115,12 @@ function initMap() {
         console.log(searchBar)
         searchBar.addEventListener("submit", (e) => {
             e.preventDefault();
-            let cityName = e.target[0].value;
+            let cityName = e.target[2].value;
             let cityLower = cityName.toLowerCase();
             let cityArr = cityLower.split(" ");
             let cityUrl = cityArr.join("_");
-            const cityFetch = fetch (BREW_URL + `?by_city=${cityUrl}`).then(r => r.json());
+            const cityFetch = fetch(BREW_URL + `?by_city=${cityUrl}`).then(r => r.json());
+            
             clearList();
             removeMarkers();
             cityFetch.then(o => o.forEach(renderListBrew))
@@ -88,19 +134,23 @@ function initMap() {
         })
     }
 
-    // function formSwapHandler(){
-        // const beer = document.querySelector("beer button")
-    //     // const brew = document.querySelector("brew button")
+    function formSwapHandler(e){
+        console.log(e.target.id)
 
-    //     beer.addEventListener("click", (e) => {
-    //         clearBody();
-    //         fetchBeerContent();
-    //     })
+        // const beer = document.querySelector("#beer-search")
+        // const brew = document.querySelector("#brew-search")
 
-    //     brew.addEventListener("click", (e) => {
-    //         clearBody();
-    //     })
-    // }
+        // beer.addEventListener("click", (e) => {
+        //     clearBody();
+        //     fetchBeerContent();
+        // })
+
+        // brew.addEventListener("click", (e) => {
+        //     clearBody();
+        // })
+    }
+
+    document.querySelectorAll('.search-filter').addEventListener("click", formSwapHandler)
 
     function clearBody() {
         const bodyContent = document.querySelector("div#content-section");
@@ -112,8 +162,20 @@ function initMap() {
         while(listContent.firstChild) {listContent.removeChild(listContent.firstChild)};
     }
 
+<<<<<<< Updated upstream
     function removeMarkers() {
         for (i=0; i<markers.length; i++) {
             markers[i].setMap(null)
         }
     }
+
+=======
+
+
+/////////////////
+    [...document.querySelectorAll('.menu-block')].forEach((obj) => {
+        obj.addEventListener('click', (e) => {
+
+        })
+    })
+>>>>>>> Stashed changes

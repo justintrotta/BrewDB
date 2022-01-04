@@ -22,6 +22,10 @@ html {
     height: 90vh;
 }
 
+.search-filter {
+    background-color: darkgoldenrod;
+}
+
 #menu-panel {
     width: 40vw;
     height: 90vh;
@@ -36,12 +40,18 @@ html {
     overflow: scroll;
 }
 
-/* #search {
-    height: 50px;
-} */
+
+.search-filter {
+    
+}
+
+.active-filter {
+    background-color: darkgoldenrod;
+}
 
 .menu-block {
     width: 100%;
+    z-index:99;
     height: 70px;
     border: 1px solid grey;
     display: flex;
@@ -80,7 +90,22 @@ html {
 
 #map {
     height: 50vh;
-    /* 50%; */
     
     position: fixed;
+}
+
+#details {
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+#details-container {
+    
+    
+    margin: auto;
+}
+
+#details span {
+    color: darkgray;
 }
