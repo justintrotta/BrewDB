@@ -22,8 +22,8 @@ html {
     height: 90vh;
 }
 
-.search-filter {
-    background-color: darkgoldenrod;
+#search {
+    text-align: center;
 }
 
 #menu-panel {
@@ -38,11 +38,6 @@ html {
 #menu-container {
     margin-top: auto;
     overflow: scroll;
-}
-
-
-.search-filter {
-    
 }
 
 .active-filter {

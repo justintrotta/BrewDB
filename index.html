@@ -5,7 +5,6 @@
         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA66vQB_EUsANahLbykkfJbrk-qoTk0MxA&callback=initMap"></script>
         <link rel="stylesheet" href="./style.css"/>
         <script src="./index.js"></script>
-        <script src="./dk_index.js" async></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
@@ -19,18 +18,11 @@
         <div id="content-section">
             <!-- left side of screen center (menu) -->
             <div id="menu-panel">
-<<<<<<< Updated upstream
-                    <form id="search" class="city-search">
-                        <input type="radio" id="beer-search" name="search" value="beer">
+                    <form id="search" name="search" class="city-search">
+                        <input type="radio" id="beer-search" name="searchToggle" value="beer">
                         <label for="beer-search">Beer</label>
-                        <input type="radio" id="brew-search" name="search" value="brew" checked>
+                        <input type="radio" id="brew-search" name="searchToggle" value="brew" checked>
                         <label for="brewery-search">Brewery</label>
-=======
-                <div class="menu-block">
-                    <form id="search">
-                        <button class="search-filter" id="beer-search">Beer</button>
-                        <button class="search-filter" id="brew-search">Brewery</button>
->>>>>>> Stashed changes
                         <input type="text" id="search-brew" name="search-brew" placeholder="Enter City Name">
                         <input type="submit" value="Submit">
                     </form>
@@ -43,7 +35,6 @@
             <div id="content-panel">
                 <div id="map"></div>
                 <div id="details">
-<<<<<<< Updated upstream
                     <div id="details-container">
                         <h3>Name: <span id="detail-name"></span> </h3>
                         <h3>Type:  <span id="detail-type"></span> </h3>
@@ -53,10 +44,6 @@
                         <h3>Website:  <span id="detail-website"></span></h3>
                     </div>
                 </div>
-=======
-                    <h2>Name:</h2>
-             </div>
->>>>>>> Stashed changes
             </div> 
         </div>
     </body>
