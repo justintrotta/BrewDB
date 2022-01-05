@@ -193,7 +193,11 @@ function fetchBeerDetails(e) {
 
                 /* COMMENT SECTION */
         removeComments("beer");
-        populateComments(parentName, "beer");        
+        populateComments(parentName, "beer");      
+        
+        //listen for comment submit event
+        // document.querySelector('#beer-add-comment').addEventListener('submit',(e) => addCommentHandler(e, parentName, "beer"))
+        addCommentHandler(parentName, "beer")
     })
 }
 
@@ -238,6 +242,9 @@ function fetchBrewDetails(e) {
                 /* COMMENT SECTION */
         removeComments("brew");
         populateComments(parentId, "brew");
+
+        //listen for comment submit event
+        document.querySelector('#brew-add-comment').addEventListener('submit',(e) => addCommentHandler(e, parentId, "brew"))
     })
 }
 
@@ -284,7 +291,7 @@ function removeComments(type) {
 function populateComments(parentId, type) {
     fetch(DB_URL).then(r => r.json()).then(o => {
         const found = o.filter(e => e.topic === parentId);
-        console.log(found);
+        // console.log(found);
         if (found) {
             const comment = document.querySelector(`#${type}-comment`);
             for (i=0; i<found.length; i++) {
@@ -299,5 +306,29 @@ function populateComments(parentId, type) {
 }
 
 function addCommentHandler(parentId, type) {
-    const form = document.querySelector(`#add-${type}-comment`);
+    
+    const form = document.querySelector(`#${type}-add-comment`)
+    console.log(form)
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        fetch(DB_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                topic: parentId,
+                user: form[0].value,
+                // rating: form[2].value,
+                rating: 5,
+                comment: form[8].value
+            })
+        })  
+        .then((obj) => console.log(obj))
+        
+        //then re-populate comments
+    })
+
+
 }
