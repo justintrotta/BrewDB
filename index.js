@@ -8,8 +8,9 @@ function initMap() {
   });
 }
 
-BEER_URL = "https://api.punkapi.com/v2/beers"
-BREW_URL = "https://api.openbrewerydb.org/breweries"
+const DB_URL = "http://localhost:3000/comments"
+const BEER_URL = "https://api.punkapi.com/v2/beers"
+const BREW_URL = "https://api.openbrewerydb.org/breweries"
 const BEER_FETCH = fetch(BEER_URL).then(r => r.json());
 const BREW_FETCH = fetch(BREW_URL).then(r => r.json());
 
@@ -38,7 +39,8 @@ function renderListBeer(obj) {
 
     const item = document.createElement("div");
     item.className = "menu-block";
-    item.id = obj.id
+    item.id = obj.id;
+    item.propertyName = obj.name;
 
     const name = document.createElement("div");
     name.className = "title";
@@ -77,7 +79,7 @@ function renderListBrew(obj) {
 
     const item = document.createElement("div");
     item.className = "menu-block";
-    item.id = obj.id
+    item.id = obj.id;
 
     const name = document.createElement("div");
     name.className = "title";
@@ -150,7 +152,9 @@ function searchHandler(e) {
 }
 
 function fetchBeerDetails(e) {
-    fetch(BEER_URL + `/${e.target.parentNode.id}`)
+    const parentName = e.target.parentNode.propertyName
+    const parentId = e.target.parentNode.id;
+    fetch(BEER_URL + `/${parentId}`)
     .then(res => res.json())
     .then(obj => {
         // console.log(obj[0])
@@ -186,12 +190,17 @@ function fetchBeerDetails(e) {
         }
     
         document.querySelector('#beer-details').style.display = 'flex'
+
+                /* COMMENT SECTION */
+        removeComments("beer");
+        populateComments(parentName, "beer");        
     })
 }
 
 //used to fetch add'l details for content section
 function fetchBrewDetails(e) {
-    fetch(BREW_URL + `/${e.target.parentNode.id}`)
+    const parentId = e.target.parentNode.id;
+    fetch(BREW_URL + `/${parentId}`)
     .then(res => res.json())
     .then(obj => {
         const name = document.querySelector('#detail-name')
@@ -223,8 +232,12 @@ function fetchBrewDetails(e) {
         } catch {
             alert('No geolocation data available for this brewery.')
         }
-        
+
         document.querySelector('#brewery-details').style.display = 'flex'
+
+                /* COMMENT SECTION */
+        removeComments("brew");
+        populateComments(parentId, "brew");
     })
 }
 
@@ -254,7 +267,6 @@ function clearBody() {
 
 function clearList() {
     const listContent = document.querySelector("div#menu-container");
-    // console.log(listContent)
     while(listContent.firstChild) {listContent.removeChild(listContent.firstChild)};
 }
 
@@ -262,4 +274,30 @@ function removeMarkers() {
     for (i=0; i<markers.length; i++) {
         markers[i].setMap(null)
     }
+}
+
+function removeComments(type) {
+    const comments = document.querySelector(`#${type}-comment`)
+    while(comments.firstChild) {comments.removeChild(comments.firstChild)};
+}
+
+function populateComments(parentId, type) {
+    fetch(DB_URL).then(r => r.json()).then(o => {
+        const found = o.filter(e => e.topic === parentId);
+        console.log(found);
+        if (found) {
+            const comment = document.querySelector(`#${type}-comment`);
+            for (i=0; i<found.length; i++) {
+            const singleComment = `${found[i].user}\nRating: ${found[i].rating}/5\n${found[i].comment}\n\n`;
+                const commentEle = document.createElement("div");
+                commentEle.innerHTML = singleComment;
+                comment.append(commentEle);
+            }
+        }
+
+    })
+}
+
+function addCommentHandler(parentId, type) {
+    const form = document.querySelector(`#add-${type}-comment`);
 }

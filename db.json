@@ -1,0 +1,39 @@
+{
+    "comments": [
+        {
+            "id": 1,
+            "topic": "10-56-brewing-company-knox",
+            "user": "John Doe",
+            "rating": 5,
+            "comment": "Lorem Ipsum"
+        },
+        {
+            "id": 2,
+            "topic": "10-56-brewing-company-knox",
+            "user": "John Doe",
+            "rating": 5,
+            "comment": "Lorem Ipsum"
+        },
+        {
+            "id": 3,
+            "topic": "10-56-brewing-company-knox",
+            "user": "John Doe",
+            "rating": 5,
+            "comment": "Lorem Ipsum"
+        },
+        {
+            "id": 4,
+            "topic": "Alpha Dog",
+            "user": "John Doe",
+            "rating": 5,
+            "comment": "Lorem Ipsum"
+        },
+        {
+            "id": 5,
+            "topic": "Alpha Dog",
+            "user": "John Doe",
+            "rating": 5,
+            "comment": "Lorem Ipsum"
+        }
+    ]
+}
