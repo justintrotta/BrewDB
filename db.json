@@ -20,69 +20,6 @@
       "user": "John Doe",
       "rating": 5,
       "comment": "Lorem Ipsum"
-    },
-    {
-      "topic": "10-56 Brewing Company",
-      "user": "Dan",
-      "rating": 5,
-      "comment": "Good",
-      "id": 4
-    },
-    {
-      "topic": "Alpha Dog",
-      "user": "dan",
-      "rating": 5,
-      "comment": "comment",
-      "id": 5
-    },
-    {
-      "topic": "10-56 Brewing Company",
-      "user": "new user",
-      "rating": 5,
-      "comment": "new comment",
-      "id": 6
-    },
-    {
-      "topic": "10-56 Brewing Company",
-      "user": "new user",
-      "rating": 5,
-      "comment": "new comment",
-      "id": 7
-    },
-    {
-      "topic": "10-56-brewing-company-knox",
-      "user": "dan",
-      "rating": 5,
-      "comment": "does it work",
-      "id": 8
-    },
-    {
-      "topic": "Dog B",
-      "user": "dan",
-      "rating": 5,
-      "comment": "ok",
-      "id": 9
-    },
-    {
-      "topic": "10-torr-distilling-and-brewing-reno",
-      "user": "Jeff",
-      "rating": 5,
-      "comment": "solid spot",
-      "id": 10
-    },
-    {
-      "topic": "10-torr-distilling-and-brewing-reno",
-      "user": "mark",
-      "rating": 5,
-      "comment": "wow",
-      "id": 11
-    },
-    {
-      "topic": "10-torr-distilling-and-brewing-reno",
-      "user": "alex",
-      "rating": 5,
-      "comment": "testing",
-      "id": 12
     }
   ]
 }

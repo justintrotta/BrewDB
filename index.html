@@ -64,7 +64,7 @@
                         </tr>
                         <tr class="brew-comment-section" id="brew-comments">
                             <td class="detail-label">Comments</td>
-                            <td id = "brew-comment">
+                            <td id="brew-comment-section">
                             </td>
                         </tr>
                         <tr>
@@ -78,9 +78,9 @@
                                         <label for="rating">Rating:</label>
                                         <fieldset name="rating">
                                             <span class="rating-radio">
-                                              <input type="radio" id="rating-5" name="rating" value="5" />
+                                              <input type="radio" id="rating-5" name="rating" value="5" checked="checked" />
                                               <label for="rating-5">5</label>
-                                              <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+                                              <input type="radio" id="rating-4" name="rating" value="4" />
                                               <label for="rating-4">4</label>
                                               <input type="radio" id="rating-3" name="rating" value="3" />
                                               <label for="rating-3">3</label>
@@ -94,8 +94,11 @@
                                           </fieldset>
                                     </div>
                                     <br>
-                                    <label for="comment">Comment:</label>
-                                    <input type="text" name="comment" id="beer-comment" placeholder="Enter your comment here...">
+                                    <!-- <input type="text" name="comment" id="beer-comment" placeholder="Enter your comment here..."> -->
+                                    <div class="comment-container">
+                                        <label for="comment">Comment:</label>
+                                        <textarea name="comment" id="beer-comment" placeholder="Enter your comment here..."></textarea>
+                                    </div>
                                     <br>
                                     <input type="submit" id="submit" value="Submit">
                                 </form>
@@ -136,7 +139,7 @@
                         </tr>
                         <tr class="beer-comment-section" id="beer-comments">
                             <td class="detail-label">Comments</td>
-                            <td id = "beer-comment">
+                            <td id="beer-comment-section">
                             </td>
                         </tr>
                         <tr>
@@ -150,9 +153,9 @@
                                         <label for="rating">Rating:</label>
                                         <fieldset name="rating">
                                             <span class="rating-radio">
-                                                <input type="radio" id="rating-5" name="rating" value="5" />
+                                                <input type="radio" id="rating-5" name="rating" value="5" checked="checked" />
                                                 <label for="rating-5">5</label>
-                                                <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+                                                <input type="radio" id="rating-4" name="rating" value="4" />
                                                 <label for="rating-4">4</label>
                                                 <input type="radio" id="rating-3" name="rating" value="3" />
                                                 <label for="rating-3">3</label>
@@ -165,9 +168,11 @@
                                             </span>
                                           </fieldset>
                                     </div>
-                                    <br>
-                                    <label name="comment">Comment:</label>
-                                    <input type="text" name="comment" id="beer-comment" placeholder="Enter your comment here...">
+                                    <br> 
+                                    <div class="comment-container">
+                                        <label for="comment">Comment:</label>
+                                        <textarea name="comment" id="beer-comment" placeholder="Enter your comment here..."></textarea>
+                                    </div>
                                     <br>
                                     <input type="submit" id="submit" value="Submit">
                                 </form>

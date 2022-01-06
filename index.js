@@ -280,7 +280,8 @@ function removeMarkers() {
 }
 
 function removeComments(type) {
-    const comments = document.querySelector(`#${type}-comment`)
+    // const comments = document.querySelector(`#${type}-comment`)
+    const comments = document.querySelector(`#${type}-comment-section`)
     while(comments.firstChild) {comments.removeChild(comments.firstChild)};
 }
 
@@ -291,7 +292,7 @@ function populateComments(parentId, type) {
         const found = o.filter(i => i.topic === parentId );
         console.log(found)
         if (found) {
-            const comment = document.querySelector(`td#${type}-comment`);
+            const comment = document.querySelector(`td#${type}-comment-section`);
             
             for (i=0; i<found.length; i++) {
             const singleComment = `${found[i].user}\n - Rating: ${found[i].rating}/5 - \n${found[i].comment}\n\n`;
@@ -306,12 +307,16 @@ function populateComments(parentId, type) {
 }
 
 function addBeerCommentHandler() {
-    
     const form = document.querySelector("form#beer-add-comment")
+    
+
     form.addEventListener('submit', (e) => { 
         e.preventDefault();
         const topic = document.querySelector("#detail-beer-name").innerHTML;
-        console.log(topic);
+        
+        const ratingList = Array.from( document.querySelectorAll('form#beer-add-comment .rating-radio input') )
+        const checked = ratingList.find(o => o.checked).value
+
         fetch(DB_URL, {
             method: "POST",
             headers: {
@@ -321,8 +326,7 @@ function addBeerCommentHandler() {
             body: JSON.stringify({
                 topic: topic,
                 user: form[0].value,
-                // rating: form[2].value,
-                rating: 5,
+                rating: checked,
                 comment: form[8].value
             })
 
@@ -331,15 +335,23 @@ function addBeerCommentHandler() {
         
         e.target.reset()
         //then re-populate comments
+        removeComments('beer')
+        populateComments(topic, 'beer')
     })
 }
 
 function addBrewCommentHandler() {
     
     const form = document.querySelector("form#brew-add-comment")
+
+
     form.addEventListener('submit', (e) => { 
         e.preventDefault();
         const topic = document.querySelector("#detail-name").dataset.id;
+
+        const ratingList = Array.from( document.querySelectorAll('form#brew-add-comment .rating-radio input') )
+        const checked = ratingList.find(o => o.checked).value
+
         fetch(DB_URL, {
             method: "POST",
             headers: {
@@ -349,8 +361,7 @@ function addBrewCommentHandler() {
             body: JSON.stringify({
                 topic: topic,
                 user: form[0].value,
-                // rating: form[2].value,
-                rating: 5,
+                rating: checked,
                 comment: form[8].value
             })
 
@@ -359,6 +370,7 @@ function addBrewCommentHandler() {
         
         e.target.reset()
         //then re-populate comments
-        populateComments(topic, "brew")
+        removeComments('brew')
+        populateComments(topic, 'brew')
     })
 }
