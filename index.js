@@ -158,8 +158,6 @@ function fetchBeerDetails(e) {
     fetch(BEER_URL + `/${parentId}`)
     .then(res => res.json())
     .then(obj => {
-        // console.log(obj[0])
-
         const beerImg = document.querySelector("#detail-image")
         beerImg.style.display = 'block'
         beerImg.src = obj[0].image_url
@@ -207,6 +205,8 @@ function fetchBrewDetails(e) {
     .then(obj => {
         const name = document.querySelector('#detail-name')
         name.textContent = obj.name
+        //need to pass the object ID on the element in order for the topic on posted comments to match the obj in the brew API
+        name.dataset.id = obj.id
 
         const type = document.querySelector('#detail-type')
         type.textContent = obj.brewery_type
@@ -239,7 +239,7 @@ function fetchBrewDetails(e) {
 
                 /* COMMENT SECTION */
         removeComments("brew");
-        populateComments(obj.name, "brew");
+        populateComments(obj.id, "brew");//obj.name
 
     })
 }
@@ -287,17 +287,18 @@ function removeComments(type) {
 function populateComments(parentId, type) {
     fetch(DB_URL).then(r => r.json()).then(o => {
         console.log(parentId)
-        const found = o.filter(e => e.topic === parentId);
+        
+        const found = o.filter(i => i.topic === parentId );
         console.log(found)
-        // console.log(found);
         if (found) {
             const comment = document.querySelector(`td#${type}-comment`);
-            console.log(comment)
+            
             for (i=0; i<found.length; i++) {
-            const singleComment = `${found[i].user}\nRating: ${found[i].rating}/5\n${found[i].comment}\n\n`;
-                const commentEle = document.createElement("div");
-                commentEle.innerHTML = singleComment;
-                comment.append(commentEle);
+            const singleComment = `${found[i].user}\n - Rating: ${found[i].rating}/5 - \n${found[i].comment}\n\n`;
+            const commentEle = document.createElement("div");
+            commentEle.textContent = singleComment;
+            comment.append(commentEle);
+            console.log(comment)
             }
         }
 
@@ -328,6 +329,7 @@ function addBeerCommentHandler() {
         })  
         .then((obj) => console.log(obj))
         
+        e.target.reset()
         //then re-populate comments
     })
 }
@@ -337,7 +339,7 @@ function addBrewCommentHandler() {
     const form = document.querySelector("form#brew-add-comment")
     form.addEventListener('submit', (e) => { 
         e.preventDefault();
-        const topic = document.querySelector("#detail-name").innerHTML;
+        const topic = document.querySelector("#detail-name").dataset.id;
         fetch(DB_URL, {
             method: "POST",
             headers: {
@@ -355,6 +357,8 @@ function addBrewCommentHandler() {
         })  
         .then((obj) => console.log(obj))
         
+        e.target.reset()
         //then re-populate comments
+        populateComments(topic, "brew")
     })
 }

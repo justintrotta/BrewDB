@@ -117,14 +117,15 @@ html {
     margin-top: 30px;
 }
 
-#brewery-details {
+#beer-details, #brewery-details {
     margin: auto;
     display: none;
-    /* width: 80%; */
+    width: 100%;
 }
 
 .detail-label {
     background-color: darkgoldenrod;
+    width: 10%;
 }
 
 td {
@@ -132,13 +133,37 @@ td {
     border-collapse: collapse;
     text-align: center;
     padding: 0 10px;
-    white-space: pre;
+}
+
+#beer-add-comment, #brew-add-comment {
+    margin: 10px;
+}
+
+#beer-add-comment label, #brew-add-comment label {
+    margin-right: 10px;
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+}
+
+#beer-add-comment fieldset, #brew-add-comment fieldset {
+    border-style: none;
+    display: inline;
+    margin: 10px;
+    padding: 0px;
 }
 
 span.rating-radio {
-    display: inline-block;
-    font-size: 8;
     direction: rtl;
     unicode-bidi: bidi-override;
-    flex-direction: row;
+}
+
+span.rating-radio input {
+    margin-right: 30px;
+}
+
+input#submit {
+    margin-top: 10px;
 }
