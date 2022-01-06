@@ -16,7 +16,8 @@ const BREW_FETCH = fetch(BREW_URL).then(r => r.json());
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchBrewContent();
-    // searchHandler();
+    addBeerCommentHandler();
+    addBrewCommentHandler();
 
     document.querySelector('form#search')[0].addEventListener('change', formSwapHandler )
     document.querySelector('form#search')[1].addEventListener('change', formSwapHandler )
@@ -194,10 +195,7 @@ function fetchBeerDetails(e) {
                 /* COMMENT SECTION */
         removeComments("beer");
         populateComments(parentName, "beer");      
-        
-        //listen for comment submit event
-        // document.querySelector('#beer-add-comment').addEventListener('submit',(e) => addCommentHandler(e, parentName, "beer"))
-        addCommentHandler(parentName, "beer")
+        console.log(parentName)
     })
 }
 
@@ -241,10 +239,8 @@ function fetchBrewDetails(e) {
 
                 /* COMMENT SECTION */
         removeComments("brew");
-        populateComments(parentId, "brew");
+        populateComments(obj.name, "brew");
 
-        //listen for comment submit event
-        document.querySelector('#brew-add-comment').addEventListener('submit',(e) => addCommentHandler(e, parentId, "brew"))
     })
 }
 
@@ -290,10 +286,13 @@ function removeComments(type) {
 
 function populateComments(parentId, type) {
     fetch(DB_URL).then(r => r.json()).then(o => {
+        console.log(parentId)
         const found = o.filter(e => e.topic === parentId);
+        console.log(found)
         // console.log(found);
         if (found) {
-            const comment = document.querySelector(`#${type}-comment`);
+            const comment = document.querySelector(`td#${type}-comment`);
+            console.log(comment)
             for (i=0; i<found.length; i++) {
             const singleComment = `${found[i].user}\nRating: ${found[i].rating}/5\n${found[i].comment}\n\n`;
                 const commentEle = document.createElement("div");
@@ -305,12 +304,13 @@ function populateComments(parentId, type) {
     })
 }
 
-function addCommentHandler(parentId, type) {
+function addBeerCommentHandler() {
     
-    const form = document.querySelector(`#${type}-add-comment`)
-    console.log(form)
-    form.addEventListener('submit', (e) => {
-        e.preventDefault()
+    const form = document.querySelector("form#beer-add-comment")
+    form.addEventListener('submit', (e) => { 
+        e.preventDefault();
+        const topic = document.querySelector("#detail-beer-name").innerHTML;
+        console.log(topic);
         fetch(DB_URL, {
             method: "POST",
             headers: {
@@ -318,17 +318,43 @@ function addCommentHandler(parentId, type) {
                 Accept: "application/json"
             },
             body: JSON.stringify({
-                topic: parentId,
+                topic: topic,
                 user: form[0].value,
                 // rating: form[2].value,
                 rating: 5,
                 comment: form[8].value
             })
+
         })  
         .then((obj) => console.log(obj))
         
         //then re-populate comments
     })
+}
 
+function addBrewCommentHandler() {
+    
+    const form = document.querySelector("form#brew-add-comment")
+    form.addEventListener('submit', (e) => { 
+        e.preventDefault();
+        const topic = document.querySelector("#detail-name").innerHTML;
+        fetch(DB_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                topic: topic,
+                user: form[0].value,
+                // rating: form[2].value,
+                rating: 5,
+                comment: form[8].value
+            })
 
+        })  
+        .then((obj) => console.log(obj))
+        
+        //then re-populate comments
+    })
 }
