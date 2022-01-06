@@ -1,3 +1,4 @@
+//google maps initialization
 let map;
 let markers = [];
 
@@ -8,12 +9,14 @@ function initMap() {
   });
 }
 
+//setting up variables to be reused in fetching from each API
 const DB_URL = "http://localhost:3000/comments"
 const BEER_URL = "https://api.punkapi.com/v2/beers"
 const BREW_URL = "https://api.openbrewerydb.org/breweries"
 const BEER_FETCH = fetch(BEER_URL).then(r => r.json());
 const BREW_FETCH = fetch(BREW_URL).then(r => r.json());
 
+//initialize the app with DOMContentLoaded evt handler and attach other preliminary evt handlers
 document.addEventListener('DOMContentLoaded', () => {
     fetchBrewContent();
     addBeerCommentHandler();
@@ -24,10 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("form#search").addEventListener('submit',searchHandler)
 })
 
+//fetch beer data from API for beer search
 function fetchBeerContent() {
     BEER_FETCH.then(o => o.forEach(renderListBeer))
 }
 
+//render summary-level elements for display in search results panel for beer search
 function renderListBeer(obj) {
     const list = document.querySelector("div#menu-container");
 
@@ -57,7 +62,7 @@ function renderListBeer(obj) {
     item.append(caption);
     item.append(searchIcon)
 
-    //give class and add to list
+    //give class for styling and add to list
     item.classList.add('menu-block');
     list.append(item);
 
@@ -65,10 +70,12 @@ function renderListBeer(obj) {
     searchIcon.addEventListener('click', fetchBeerDetails)
 }
 
+//fetch beer data from API for brewery search
 function fetchBrewContent() {
     BREW_FETCH.then(o => o.forEach(renderListBrew))
 }
 
+//render summary-level elements for display in search results panel for brewery search
 function renderListBrew(obj) {
     const list = document.querySelector("div#menu-container");
     const caption = document.createElement("div");
@@ -112,6 +119,9 @@ function renderListBrew(obj) {
     searchIcon.addEventListener('click', fetchBrewDetails)
 }
 
+//handle submit event for search form
+//search for breweries if brewery search is selected
+//else search for beers
 function searchHandler(e) {
     e.preventDefault()
 
@@ -152,6 +162,8 @@ function searchHandler(e) {
     }
 }
 
+//for beer search-- fetch detail-level data for the beer that is clicked
+//this data is used to populate the details section on the right of the screen
 function fetchBeerDetails(e) {
     const parentName = e.target.parentNode.propertyName
     const parentId = e.target.parentNode.id;
@@ -197,7 +209,8 @@ function fetchBeerDetails(e) {
     })
 }
 
-//used to fetch add'l details for content section
+//for brewery search-- fetch detail-level data for the brewery that is clicked
+//this data is used to populate the details section on the right of the screen
 function fetchBrewDetails(e) {
     const parentId = e.target.parentNode.id;
     fetch(BREW_URL + `/${parentId}`)
@@ -244,7 +257,10 @@ function fetchBrewDetails(e) {
     })
 }
 
+//when the search type (beer vs brewery) is toggled, style the UI accordingly
+//hide irrelevant DOM components for the chosen search
 function formSwapHandler(e){
+    //remove search results from any previous search from the DOM
     clearList()
 
     if (e.target.value === 'beer') {
@@ -263,28 +279,33 @@ function formSwapHandler(e){
     }
 }
 
+//clear right side of screen
 function clearBody() {
     const bodyContent = document.querySelector("div#content-section");
     while(bodyContent.firstChild) {bodyContent.removeChild(bodyContent.firstChild)};
 }
 
+//clear search results
 function clearList() {
     const listContent = document.querySelector("div#menu-container");
     while(listContent.firstChild) {listContent.removeChild(listContent.firstChild)};
 }
 
+//remove markers from the map view (brewery search)
 function removeMarkers() {
     for (i=0; i<markers.length; i++) {
         markers[i].setMap(null)
     }
 }
 
+//remove comments from the detail view
 function removeComments(type) {
     // const comments = document.querySelector(`#${type}-comment`)
     const comments = document.querySelector(`#${type}-comment-section`)
     while(comments.firstChild) {comments.removeChild(comments.firstChild)};
 }
 
+//find and render comments for the selected beer/brewery in the detail view section
 function populateComments(parentId, type) {
     fetch(DB_URL).then(r => r.json()).then(o => {
         console.log(parentId)
@@ -295,20 +316,21 @@ function populateComments(parentId, type) {
             const comment = document.querySelector(`td#${type}-comment-section`);
             
             for (i=0; i<found.length; i++) {
-            const singleComment = `${found[i].user}\n - Rating: ${found[i].rating}/5 - \n${found[i].comment}\n\n`;
+            // const singleComment = `${found[i].user}\n - Rating: ${found[i].rating}/5 - \n${found[i].comment}\n\n`;
+            const singleComment = `"${found[i].comment}" -${found[i].user} (Rating: ${found[i].rating}/5)`;
             const commentEle = document.createElement("div");
             commentEle.textContent = singleComment;
             comment.append(commentEle);
             console.log(comment)
             }
         }
-
     })
 }
 
+//handle post new comment for beer
+//'topic' for the POST must sync up with the id for the subject of the comment (i.e. the beer being reviewed) in order to correctly fetch
 function addBeerCommentHandler() {
     const form = document.querySelector("form#beer-add-comment")
-    
 
     form.addEventListener('submit', (e) => { 
         e.preventDefault();
@@ -332,18 +354,18 @@ function addBeerCommentHandler() {
 
         })  
         .then((obj) => console.log(obj))
-        
         e.target.reset()
+
         //then re-populate comments
         removeComments('beer')
         populateComments(topic, 'beer')
     })
 }
 
-function addBrewCommentHandler() {
-    
+//handle post new comment for brewery
+//'topic' for the POST must sync up with the id for the subject of the comment (i.e. the brewery being reviewed) in order to correctly fetch
+function addBrewCommentHandler() {    
     const form = document.querySelector("form#brew-add-comment")
-
 
     form.addEventListener('submit', (e) => { 
         e.preventDefault();
@@ -367,8 +389,8 @@ function addBrewCommentHandler() {
 
         })  
         .then((obj) => console.log(obj))
-        
         e.target.reset()
+
         //then re-populate comments
         removeComments('brew')
         populateComments(topic, 'brew')

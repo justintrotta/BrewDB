@@ -20,6 +20,48 @@
       "user": "John Doe",
       "rating": 5,
       "comment": "Lorem Ipsum"
+    },
+    {
+      "topic": "10-barrel-brewing-co-denver-denver",
+      "user": "Dan",
+      "rating": "5",
+      "comment": "Pretty good",
+      "id": 4
+    },
+    {
+      "topic": "ballast-point-brewing-company-chicago",
+      "user": "Dan",
+      "rating": "4",
+      "comment": "sad it closed.",
+      "id": 5
+    },
+    {
+      "topic": "Dog B",
+      "user": "Dan",
+      "rating": "2",
+      "comment": "nothing to write home about",
+      "id": 6
+    },
+    {
+      "topic": "Elvis Juice V2.0 - Prototype Challenge",
+      "user": "Daniel",
+      "rating": "5",
+      "comment": "very good",
+      "id": 7
+    },
+    {
+      "topic": "empire-city-beer-company-new-york",
+      "user": "Ernesto",
+      "rating": "4",
+      "comment": "love it",
+      "id": 8
+    },
+    {
+      "topic": "dryhop-brewers-chicago",
+      "user": "Dan",
+      "rating": "4",
+      "comment": "Great thincrust pizza",
+      "id": 9
     }
   ]
 }
