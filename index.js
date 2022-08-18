@@ -1,4 +1,5 @@
 //google maps initialization
+
 let map;
 let markers = [];
 

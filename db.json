@@ -62,6 +62,55 @@
       "rating": "4",
       "comment": "Great thincrust pizza",
       "id": 9
+    },
+    {
+      "topic": "10-56-brewing-company-knox",
+      "user": "Justin",
+      "rating": "3",
+      "comment": "Nice beer!",
+      "id": 10
+    },
+    {
+      "topic": "10-barrel-brewing-co-bend-1",
+      "user": "Justin",
+      "rating": "1",
+      "comment": "Mediocre",
+      "id": 11
+    },
+    {
+      "topic": "Sunk Punk",
+      "user": "test",
+      "rating": "4",
+      "comment": "test",
+      "id": 12
+    },
+    {
+      "topic": "Sunk Punk",
+      "user": "",
+      "rating": "5",
+      "comment": "",
+      "id": 13
+    },
+    {
+      "topic": "10-56-brewing-company-knox",
+      "user": "test",
+      "rating": "5",
+      "comment": "test",
+      "id": 14
+    },
+    {
+      "topic": "10-56-brewing-company-knox",
+      "user": "test",
+      "rating": "5",
+      "comment": "test",
+      "id": 15
+    },
+    {
+      "topic": "10-barrel-brewing-co-bend-2",
+      "user": "test",
+      "rating": "3",
+      "comment": "test",
+      "id": 16
     }
   ]
 }

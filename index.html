@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Brew DB</title>
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA66vQB_EUsANahLbykkfJbrk-qoTk0MxA&callback=initMap"></script>
         <link rel="stylesheet" href="./style.css"/>
         <script src="./index.js"></script>
         
@@ -64,41 +63,32 @@
                         </tr>
                         <tr class="brew-comment-section" id="brew-comments">
                             <td class="detail-label">Comments</td>
-                            <td id="brew-comment-section">
+                            <td id = "brew-comment">
                             </td>
                         </tr>
                         <tr>
                             <td class="detail-label">Add a Comment</td>
                             <td>
-                                <form id="brew-add-comment">
-                                    <div class="name-container">
-                                        <label for="username">Name:</label>
-                                        <input type="text" name="username" id="beer-username" placeholder="Enter your name here...">
-                                    </div>
-                                    <div class="rating-container">
-                                        <label for="rating">Rating:</label>
-                                        <fieldset name="rating">
-                                            <span class="rating-radio">
-                                              <input type="radio" id="rating-5" name="rating" value="5" checked="checked" />
-                                              <label for="rating-5">5</label>
-                                              <input type="radio" id="rating-4" name="rating" value="4" />
-                                              <label for="rating-4">4</label>
-                                              <input type="radio" id="rating-3" name="rating" value="3" />
-                                              <label for="rating-3">3</label>
-                                              <input type="radio" id="rating-2" name="rating" value="2" />
-                                              <label for="rating-2">2</label>
-                                              <input type="radio" id="rating-1" name="rating" value="1" />
-                                              <label for="rating-1">1</label>
-                                              <input type="radio" id="rating-0" name="rating" value="0" />
-                                              <label for="rating-0">0</label>
-                                            </span>
-                                          </fieldset>
-                                    </div>
-                                    <div class="comment-container">
-                                        <label for="comment">Comment:</label>
-                                        <textarea name="comment" id="beer-comment" placeholder="Enter your comment here..."></textarea>
-                                    </div>
-                                    <input type="submit" id="submit" value="Submit">
+                                <form id = "brew-add-comment">
+                                    <input type="text" name="username" id="beer-username" placeholder="Enter your name here...">
+                                    <fieldset>
+                                        <span class="rating-radio">
+                                          <input type="radio" id="rating-5" name="rating" value="5" />
+                                          <label for="rating-5">5</label>
+                                          <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+                                          <label for="rating-4">4</label>
+                                          <input type="radio" id="rating-3" name="rating" value="3" />
+                                          <label for="rating-3">3</label>
+                                          <input type="radio" id="rating-2" name="rating" value="2" />
+                                          <label for="rating-2">2</label>
+                                          <input type="radio" id="rating-1" name="rating" value="1" />
+                                          <label for="rating-1">1</label>
+                                          <input type="radio" id="rating-0" name="rating" value="0" />
+                                          <label for="rating-0">0</label>
+                                        </span>
+                                      </fieldset>
+                                      <input type="text" name="comment" id="beer-comment" placeholder="Enter your comment here...">
+                                      <input type="submit" value="Submit">
                                 </form>
                             </td>
                         </tr>
@@ -118,7 +108,7 @@
                         <tr>
                             <td class="detail-label">Description</td>
                             <td id="detail-description"></td>
-                        </tr>
+                        </tr>   
                         <tr>
                             <td class="detail-label">Since</td>
                             <td id="detail-since"></td>
@@ -137,41 +127,32 @@
                         </tr>
                         <tr class="beer-comment-section" id="beer-comments">
                             <td class="detail-label">Comments</td>
-                            <td id="beer-comment-section">
+                            <td id = "beer-comment-section">
                             </td>
                         </tr>
                         <tr>
                             <td class="detail-label">Add a Comment</td>
                             <td>
                                 <form id = "beer-add-comment">
-                                    <div class="name-container">
-                                        <label for="username">Name:</label>
-                                        <input type="text" name="username" id="beer-username" placeholder="Enter your name here...">
-                                    </div>
-                                    <div class="rating-container">
-                                        <label for="rating">Rating:</label>
-                                        <fieldset name="rating">
-                                            <span class="rating-radio">
-                                                <input type="radio" id="rating-5" name="rating" value="5" checked="checked" />
-                                                <label for="rating-5">5</label>
-                                                <input type="radio" id="rating-4" name="rating" value="4" />
-                                                <label for="rating-4">4</label>
-                                                <input type="radio" id="rating-3" name="rating" value="3" />
-                                                <label for="rating-3">3</label>
-                                                <input type="radio" id="rating-2" name="rating" value="2" />
-                                                <label for="rating-2">2</label>
-                                                <input type="radio" id="rating-1" name="rating" value="1" />
-                                                <label for="rating-1">1</label>
-                                                <input type="radio" id="rating-0" name="rating" value="0" />
-                                                <label for="rating-0">0</label>
-                                            </span>
-                                          </fieldset>
-                                    </div>
-                                    <div class="comment-container">
-                                        <label for="comment">Comment:</label>
-                                        <textarea name="comment" id="beer-comment" placeholder="Enter your comment here..."></textarea>
-                                    </div>
-                                    <input type="submit" id="submit" value="Submit">
+                                    <input type="text" name="username" id="beer-username" placeholder="Enter your name here...">
+                                    <fieldset>
+                                        <span class="rating-radio">
+                                          <input type="radio" id="rating-5" name="rating" value="5" />
+                                          <label for="rating-5">5</label>
+                                          <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+                                          <label for="rating-4">4</label>
+                                          <input type="radio" id="rating-3" name="rating" value="3" />
+                                          <label for="rating-3">3</label>
+                                          <input type="radio" id="rating-2" name="rating" value="2" />
+                                          <label for="rating-2">2</label>
+                                          <input type="radio" id="rating-1" name="rating" value="1" />
+                                          <label for="rating-1">1</label>
+                                          <input type="radio" id="rating-0" name="rating" value="0" />
+                                          <label for="rating-0">0</label>
+                                        </span>
+                                      </fieldset>
+                                      <input type="text" name="comment" id="beer-comment" placeholder="Enter your comment here...">
+                                      <input type="submit" value="Submit">
                                 </form>
                             </td>
                         </tr>
